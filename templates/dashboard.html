@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h5>Cluster Overview</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card bg-primary text-white">
+              <div class="card-body text-center">
+                <h1 id="node-count">{{ node_count }}</h1>
+                <p>Nodes</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <canvas id="resourceChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h5>Add Node</h5>
+      </div>
+      <div class="card-body">
+        <form id="addNodeForm">
+          <div class="mb-3">
+            <label for="cpuCores" class="form-label">CPU Cores</label>
+            <input type="number" class="form-control" id="cpuCores" min="1" value="2" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Add Node</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5>Node Status</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Node ID</th>
+                <th>Status</th>
+                <th>CPU Cores</th>
+                <th>Available</th>
+                <th>Pods</th>
+                <th>Last Heartbeat</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="nodeTableBody">
+              {% for node_id, node in nodes.items() %}
+              <tr data-node-id="{{ node_id }}">
+                <td>{{ node_id[:8] }}...</td>
+                <td><span class="badge bg-{{ 'success' if node.status == 'healthy' else 'danger' }}">{{ node.status }}</span></td>
+                <td>{{ node.cpu }}</td>
+                <td>{{ node.available_cpu }}</td>
+                <td>{{ node.pods|length }}</td>
+                <td>{{ node.last_heartbeat|round(2) }}</td>
+                <td><button class="btn btn-danger btn-sm delete-node-btn">Delete</button></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- External JS -->
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
