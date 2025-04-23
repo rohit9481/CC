@@ -126,7 +126,7 @@ def record_utilization(utilization_value):
     except Exception as e:
         print(f"Error recording utilization: {e}")
         return None
-  
+
 if __name__ == "__main__":
     # Test connection
     init_supabase_tables() 

@@ -31,7 +31,7 @@ def launch_pod(server_url, cpu_required, memory_required, scheduling_algorithm, 
     
     if node_affinity:
         payload["node_affinity"] = node_affinity
-       
+        
     response = requests.post(url, json=payload)
     if response.status_code == 200:
         data = response.json()
