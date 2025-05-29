@@ -1,4 +1,4 @@
-# Cluster Simulation Framework
+ # Cluster Simulation Framework
 
 ## Overview
 The Cluster Simulation Framework is a Python-based tool designed to simulate a distributed computing cluster. It provides a Flask-based API server, a CLI client for interacting with the cluster, a node simulator for sending heartbeats, and an advanced web-based dashboard for real-time monitoring. The framework supports node management, pod scheduling with multiple algorithms, auto-scaling, health monitoring, and a Chaos Monkey feature to simulate failures.
